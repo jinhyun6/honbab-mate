@@ -1,13 +1,6 @@
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import {
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  Timestamp,
-} from "firebase/firestore";
+import { collection, addDoc, onSnapshot, query, orderBy, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import Head from "next/head";
 
@@ -17,10 +10,7 @@ export default function ChatRoom() {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  const username = typeof window !== "undefined"
-    ? localStorage.getItem("username") || "익명"
-    : "익명";
+  const username = typeof window !== "undefined" && localStorage.getItem("username");
 
   useEffect(() => {
     if (!roomId) return;
@@ -43,7 +33,7 @@ export default function ChatRoom() {
     if (!newMessage.trim()) return;
 
     await addDoc(collection(db, "chats", String(roomId), "messages"), {
-      sender: username,
+      sender: username || "익명",
       text: newMessage.trim(),
       timestamp: Timestamp.now(),
     });
@@ -66,10 +56,11 @@ export default function ChatRoom() {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`max-w-xs rounded-xl px-4 py-2 text-sm shadow
-                  ${msg.sender === username
+                className={`max-w-xs rounded-xl px-4 py-2 text-sm shadow-lg ${
+                  msg.sender === username
                     ? "ml-auto bg-blue-500 text-white"
-                    : "mr-auto bg-gray-100 text-gray-800"}`}
+                    : "mr-auto bg-gray-100 text-gray-800"
+                }`}
               >
                 <div className="font-semibold mb-1">{msg.sender}</div>
                 <div>{msg.text}</div>
