@@ -1,4 +1,6 @@
-import { app } from "../firebase";  // 여기서 app을 import
+// login.tsx
+
+import { app } from "../firebase"; // firebase.ts에서 app을 import
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

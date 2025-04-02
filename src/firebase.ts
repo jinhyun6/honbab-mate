@@ -1,3 +1,5 @@
+// firebase.ts
+
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -11,11 +13,11 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID",
 };
 
-// Firebase 초기화
+// Firebase 앱 초기화
 const app = initializeApp(firebaseConfig);
 
 // Firestore 초기화
 const db = getFirestore(app);
 
-// app과 db를 export
+// app과 db를 export 해야 합니다
 export { app, db };
