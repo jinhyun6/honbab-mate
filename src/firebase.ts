@@ -1,19 +1,21 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth"; // 👈 추가
 
+// Firebase 설정
 const firebaseConfig = {
-  apiKey: "AIzaSyD2s50K-qpTy5uwQs81AF0c2gmM8tkK9E8",
-  authDomain: "honbabmate-3442c.firebaseapp.com",
-  projectId: "honbabmate-3442c",
-  storageBucket: "honbabmate-3442c.appspot.com",
-  messagingSenderId: "796705648319",
-  appId: "1:796705648319:web:b2657d806e01c35c2aa00a"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+// Firebase 초기화
+const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
-export const auth = getAuth(app); // 👈 추가
-export const provider = new GoogleAuthProvider(); // 👈 추가
+// Firestore 초기화
+const db = getFirestore(app);
 
+// app과 db를 export
+export { app, db };
